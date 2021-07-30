@@ -16,9 +16,8 @@ button {
   display: flex;
   flex-direction: column;
   position: relative;
-  border-radius: 20px;
   width: 800px;
-  height: 500px;
+  height: 550px;
   margin: auto;
   margin-top: 50px;
   background: url(img/background.png) center/cover no-repeat;
@@ -58,7 +57,7 @@ header {
   display: inline-block;
   width: 50px;
   height: 50px;
-  font-size: 46px;
+  font-size: 38px;
   margin-top: 4px;
   background-color: darksalmon;
   color: white;
@@ -67,10 +66,8 @@ header {
 }
 
 .game__field {
-  position: relative;
   width: 100%;
   height: 100%;
-  margin-top: 40px;
 }
 
 .pop-up {
@@ -81,10 +78,6 @@ header {
   background-color: #00000090;
   color: white;
   transform: translateY(-150%);
-}
-
-.pop-up--hide {
-  display: none;
 }
 
 .pop-up__refresh {

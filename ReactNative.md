@@ -1,107 +1,62 @@
 # 목차
 
-# 01. 개발 환경 (Mac_Setting)
+# 01. 개발 환경 (Mac M1_Setting)
 
-- ### Homevrew
-  Iterm or Terminal에 입력
+- ### iTerm 설치 및 Rosetta 설정
+
+  - [iTerm 설치](https://iterm2.com/downloads.html)를 설치한다
+  - 응용프로그램에서 iTerm을 복제한다
+  - 복제한 iTerm [정보 가져오기] 클릭 > [Rosseta]를 사용하여 열기
+
+- ### Homebrew 설치
 
 ```
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
-- ### Visual Studio Code
-
-[홈페이지](https://code.visualstudio.com/)에서 다운로드
-
-- ### Node.js (nvm)
-  VSCode Terminal에 차례대로 입력
+- ### node 설치
 
 ```
-> brew install wget
-> touch $HOME/ .zshrc
-> wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
-> source .zshrc
-> nvm install --lts
+> brew install node
 > node -v
+> npm -v
 ```
 
-버전이 제대로 확인된다면 설치 완료
-
-- ### 자바8 JDK
-  VSCode Terminal에 차례대로 입력
-
-```
-> brew tap AdoptOpenJDK/openjdk
-> brew install --cask adoptopenjdk8
-```
-
-.zshrc 파일을 연다.
-
-```
-code $HOME/ .zshrc
-```
-
-아래 코드를 마지막 줄에 삽입하고 저장
-
-```
-export JAVA_HOME=/Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home
-```
-
-VSCode Terminal에 차례대로 입력하여 설치 확인
-
-```
-> source .zshrc
-> echo $JAVA_HOME
-> java -version
-```
-
-- ### Xcode
-
-- ### cocoapods(코코아팟)
-  VSCode Terminal에 차례대로 입력하여 설치하고 확인
-
-```
-> sudo gem install cocoapods
-> pod --version
-```
-
-- ### watchman(워치맨)
-  VSCode Terminal에 차례대로 입력하여 설치하고 확인
+- ### watchman
 
 ```
 > brew install watchman
 > watchman --version
 ```
 
-- ### Android Studio(안드로이드 스튜디오)
-
-  [홈페이지](https://developer.android.com/studio?gclid=CjwKCAjwgb6IBhAREiwAgMYKRu9-hfI_8Wh_otGib7oTJMcpSQQm5Y9QI8mlFpncLcVKWmAthMUqoRoCV38QAvD_BwE&gclsrc=aw.ds)에서 다운로드
-
-.zshrc 파일을 연다.
+- ### Cocoapod 설치(iTerm Rosetta 터미널 이용)
 
 ```
-code $HOME/ .zshrc
+> sudo gem install cocoapods
+> sudo gem install ffi
 ```
 
-아래 코드를 마지막 줄에 삽입하고 저장
+- ### Xcode 설치 및 설정
+
+  - Mac 앱스토어에서 다운로드
+
+- ### Expo 가입 및 설치
+  - Expo 사이트에 접속하여 가입을 하고 설치한다
+  ```
+  npm install -g expo-cli
+  ```
+  - 핸드폰에도 Expo 어플 다운로드
+
+# 02. Expo_Project 생성하기
+
+프로젝트를 수행 할 폴더를 생성하고, 터미널에서 그 폴더의 위치로 이동한다.
 
 ```
-> export ANDROID_SDK_ROOT=$HOME/Library/Android/sdk
-> export PATH=$PATH:$ANDROID_SDK_ROOT/emulator
-> export PATH=$PATH:$ANDROID_SDK_ROOT/tools
-> export PATH=$PATH:$ANDROID_SDK_ROOT/tools/bin
-> export PATH=$PATH:$ANDROID_SDK_ROOT/platform-tools
+exp init (project name)
 ```
-
-VSCode Terminal로 돌아와서 내용 반영
-
+blank 등등 선택할 사항이 있다. 
+실행 할 파일을 visual studio code에서 연다.
+visual studio code 터미널을 연다.
 ```
-source .zshrc
-```
-
-- ### TypeScript 컴파일러
-  VSCode Terminal에 입력
-
-```
-npm i -g typescript ts-mode
+npm start
 ```

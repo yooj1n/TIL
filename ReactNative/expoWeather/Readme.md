@@ -181,3 +181,217 @@ export default class extends React.Component {
 ```
 
 # Displaying Tmeperature
+
+- current weather data - Units format을 보면 2가지 옵션이 있다. 섭씨(Celsius)를 사용할 것이다.&units=metric 추가
+
+```javascript
+`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${API_KEY}&units=metric`;
+```
+
+- Expo Device를 선택- Features 탭 - Location 탭 - Custom Location 에서 나의 latitude와,longitude로 바꾸기
+- Weather.js를 생성한다.
+- 몇 가지 props를 가지기 때문에 prop types 설치한다.
+
+```
+npm install prop-types
+```
+
+Weather.js
+
+```javascript
+import React from "react";
+import { View, Text, StyleSheet } from "react-native";
+import PropTypes from "prop-types";
+
+export default function Weather({ temp }) {
+  return (
+    <View style={styles.container}>
+      <Text>{temp}</Text>
+    </View>
+  );
+}
+
+Weather.propTypes = {
+  temp: PropTypes.number.isRequired,
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});
+```
+
+App.js
+
+- null 대신에 Weather을 가져온다.
+
+```javascript
+const { isLoading, temp } = this.state;
+return isLoading ? <Loading /> : <Weather temp={Math.round(temp)} />; //기온을 정수로만 표현
+```
+
+- getWeather 함수 내부에서 console행 지우고 setState행 삽입
+
+```javascript
+console.log(data); //삭제
+this.setState({ isLoading: false, temp: data.main.temp }); //삽입
+```
+
+getLocation 함수 내부에서 setState 행 삭제
+
+```javascript
+this.setState({ isLoading: false }); //삭제
+```
+
+# Getting the Condition Names
+
+Weather.js propType에 날씨들 추가
+
+```javascript
+temp: PropTypes.number.isRequired,
+  condition: PropTypes.oneOf([
+    "Thunderstorm",
+    "Drizzle",
+    "Rain",
+    "Snow",
+    "Atmosphere",
+    "Clear",
+    "Clouds",
+    "Haze",
+    "Mist",
+    "Dust"
+  ]).isRequired
+```
+
+```javascript
+getWeather = async (latitude, longitude) => {
+  const {
+    data: {
+      main: { temp },
+      weather,
+    },
+  } = await axios.get(
+    `http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&APPID=${API_KEY}&units=metric`
+  );
+  this.setState({
+    isLoading: false,
+    condition: weather[0].main,
+    temp,
+  });
+};
+```
+
+```javascript
+render() {
+    const { isLoading, temp, condition } = this.state;
+    return isLoading ? (
+      <Loading />
+    ) : (
+      <Weather temp={Math.round(temp)} condition={condition} />
+    );
+  }
+```
+
+# Icons and Styling
+
+Expo는 expo/vector-icons라는걸 이미 가지고있기 때문에 Weather.js에 import만 해주면 된다.
+
+```javascript
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+//만약 다른 아이콘 family를 원한다면 {} 안을 수정해주면 된다.
+```
+
+아래와 같이 아이콘을 스타일링 하면 되고, View를 두개로 나눠서 영역을 반반으로 나눠 배치할 것이다.
+
+```javascript
+export default function Weather({ temp }) {
+  return (
+    <View style={styles.container}>
+      <View style={styles.halfContainer}>
+        <MaterialCommunityIcons size={96} name="weather-lightning-rainy" />
+        <Text style={styles.temp}>{temp}o</Text>
+      </View>
+      <View style={styles.halfContainer} />
+    </View>
+  );
+}
+```
+
+styleSheet에 아래와 같이 추가
+
+```javascript
+  temp: {
+    fontSize: 42
+  },
+  halfContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center"
+  }
+```
+
+# Background Gradient
+
+```
+expo install expo-linear-gradient
+```
+
+```javascript
+import { LinearGradient } from "expo-linear-gradient";
+```
+
+핸드폰 위의 기본적인 bar 색상을 수정하기 위해서는 StatusBar를 Loading.js와 Weather.js에 import 해줘야한다.
+
+```javascript
+import { StyleSheet, Text, View, StatusBar } from "react-native";
+```
+
+아래와 같이 Gradient를 설정해준다.
+
+- [Gradients](https://uigradients.com/#Transfile) 조합 추천링크
+
+```javascript
+const weatherOptions = {
+  Haze: {
+    iconName: "weather-hail",
+    gradient: ["#4DA0B0", "#D39D38"]
+  },
+  Thunderstorm: {
+    iconName: "",
+    gradient: []
+  },
+  Drizzle: {
+    iconName: "",
+    gradient: []
+  },
+  .
+  .
+  .
+export default function Weather({ temp, condition }) {
+  return (
+    <LinearGradient
+      colors={weatherOptions[condition].gradient}
+      style={styles.container}
+    >
+      <StatusBar barStyle="light-content" />
+      <View style={styles.halfContainer}>
+        <MaterialCommunityIcons
+          size={96}
+          name={weatherOptions[condition].iconName}
+          color="white"
+        />
+        <Text style={styles.temp}>{temp}°</Text>
+      </View>
+      <View style={styles.halfContainer} />
+    </LinearGradient>
+  );
+}
+```
+
+# Titles and Subtitles
+
+- 날씨에 맞는 title과 subtitle을 추가한다.
+- styling 한다.

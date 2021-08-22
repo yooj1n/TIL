@@ -11,7 +11,15 @@ Navigator의 모든 Screen은 Navigation이라는 prop에 접근권을 가지고
 
 */
 export default () => (
-  <Stack.Navigator>
+  <Stack.Navigator screenOptions={{
+    headerStyle : {
+      backgroundColor : "black",
+      borderBottomColor : "black", //web
+      shadowColor : "black" //mobile
+    },
+    headerTintColor : "white",
+    headerBackTitleVisible : false
+  }}>
     <Stack.Screen name="Tab" component={Tabs} />
     <Stack.Screen name="Detail" component={Detail} />
   </Stack.Navigator>

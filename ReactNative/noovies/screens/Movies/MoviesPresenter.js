@@ -5,22 +5,28 @@ import { ActivityIndicator, Dimensions, ScrollView, View } from "react-native";
 import Slide from "../../components/Movies/Slide";
 import Title from "../../components/Title";
 import Vertical from "../../components/Vertical";
+import Horizontal from "../../components/Horizontal";
 
 const { width: WIDTH, height: HEIGHT } = Dimensions.get("window");
 
 const SlideContainer = styled.View`
-  width: ${WIDTH}px;
+  width: 100%;
   height: ${HEIGHT / 4}px;
   margin-bottom: 40px;
 `
 const Container = styled.View``;
 
-export default ({ loading, nowPlaying, popular }) => (
+const UpcomingContainer = styled.View`
+  margin-top: 20px;
+`;
+
+
+export default ({ loading, nowPlaying, popular, upcoming }) => (
   //많은 것들을 갖게 되니까 스크롤이 되어야함. 핸드폰에서는 필수로 설정해줘야함
   <ScrollView style={{
     backgroundColor: "black"}}
     contentContainerStyle={{
-      flex:1,
+      flex: loading ? 1 : "auto",
       //RN의 기본적인 flex direction은 column
       justifyContent: loading ? "center" : "flex-start"
     }}
@@ -49,10 +55,11 @@ export default ({ loading, nowPlaying, popular }) => (
       <ScrollView 
       horizontal showsHorizontalScrollIndicator={false}
       contentContainerStyle={{paddingLeft:20}}
-      style={{marginTop:15}}
+      style={{marginTop:20, marginBottom:40}}
       >
             {popular.map(movie => (
               <Vertical
+                id={movie.id}
                 key={movie.id}
                 poster={movie.poster_path}
                 title={movie.title}
@@ -60,6 +67,19 @@ export default ({ loading, nowPlaying, popular }) => (
               />
             ))}
           </ScrollView>
+          <Title title={"COMING SOON"}></Title>
+          <UpcomingContainer>
+            {upcoming.map(movie => (
+              <Horizontal
+                key={movie.id}
+                id={movie.id}
+                title={movie.title}
+                releaseDate={movie.release_date}
+                poster={movie.poster_path}
+                overview={movie.overview}
+              />
+            ))}
+          </UpcomingContainer>
       </Container>
       </>
     )}

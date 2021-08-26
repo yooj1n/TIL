@@ -71,7 +71,7 @@ const Slide = ({ id, title, backgroundImage, votes, overview, poster}) => (
         <VotesContainer>
           <Votes votes={votes} />
         </VotesContainer>
-        <Overview>{trimText(overview,100)}</Overview>
+        <Overview>{trimText(overview,80)}</Overview>
         <TouchableOpacity>
           <Button>
             <ButtonText>View Details</ButtonText>

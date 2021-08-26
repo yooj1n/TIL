@@ -22,6 +22,7 @@ const Data = styled.View`
 
 const ReleaseDate = styled.Text`
   color: white;
+  opacity: 0.8;
   font-size: 12px;
 `;
 
@@ -33,6 +34,7 @@ const Title = styled.Text`
 
 const Overview = styled.Text`
   margin-top: 10px;
+  opacity: 0.8;
   color: white;
 `;
 
@@ -40,13 +42,13 @@ const Overview = styled.Text`
 const Horizontal = ({ id, title, poster, overview, releaseDate }) => (
   <TouchableOpacity>
     <Container>
-      <Poster url={poster} />
+      {Poster ? (<Poster url={poster} />) : null}
       <Data>
         <Title>{trimText(title, 30)}</Title>
         {releaseDate ? (
           <ReleaseDate>{formatDate(releaseDate)}</ReleaseDate>
         ) : null}
-        <Overview>{trimText(overview, 120)}</Overview>
+        <Overview>{trimText(overview, 80)}</Overview>
       </Data>
     </Container>
   </TouchableOpacity>

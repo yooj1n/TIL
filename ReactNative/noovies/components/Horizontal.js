@@ -42,7 +42,7 @@ const Overview = styled.Text`
 const Horizontal = ({ id, title, poster, overview, releaseDate }) => (
   <TouchableOpacity>
     <Container>
-      {Poster ? (<Poster url={poster} />) : null}
+      <Poster url={poster} />
       <Data>
         <Title>{trimText(title, 30)}</Title>
         {releaseDate ? (
@@ -58,7 +58,7 @@ Horizontal.propTypes = {
   id: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   releaseDate: PropTypes.string,
-  poster: PropTypes.string.isRequired,
+  poster: PropTypes.string,
   overview: PropTypes.string.isRequired
 };
 

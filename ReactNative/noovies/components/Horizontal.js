@@ -40,10 +40,11 @@ const Overview = styled.Text`
 `;
 
 
-const Horizontal = ({ id, title, poster, overview, releaseDate }) => {
+const Horizontal = ({ isTv=false, id, title, poster, overview, releaseDate }) => {
   const navigation = useNavigation();
   const goToDetail = () => {
     navigation.navigate("Detail", {
+      isTv,
       id,
       title,
       poster,

@@ -3,7 +3,7 @@ import {Image, StatusBar} from "react-native"
 import * as Font from "expo-font";
 import AppLoading from 'expo-app-loading';
 import { Asset } from 'expo-asset';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, FontAwesome } from '@expo/vector-icons';
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import Stack from './navigation/Stack';
@@ -28,7 +28,7 @@ export default function App() {
       "https://images.unsplash.com/photo-1572700432881-42c60fe8c869?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80",
       require("./assets/splash.png")
     ]);
-    const fonts = cacheheFonts([Ionicons.font]);
+    const fonts = cacheheFonts([Ionicons.font, FontAwesome.font]);
     //loadAssets은 Promise를 return해야함.
     // Promise.all이 promise array를 가진다.
     return Promise.all([...images, ...fonts]);

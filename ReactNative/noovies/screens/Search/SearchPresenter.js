@@ -41,6 +41,7 @@ contentContainerStyle={{paddingTop:10}}>
     <HorizontalSlider title={"TV Results"}>
     {shows.map(show => (
       <Vertical 
+        isTv={true}
         id={show.id}
         key={show.id}
         poster={show.poster_path}

@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import DetailPresenter from "./DetailPresenter";
+import * as WebBrowser from 'expo-web-browser';
 import { movieApi, tvApi } from "../../api";
+
 export default ({
   navigation,
   route: {
     params: { isTv, id, title, backgroundImage, poster, votes, overview }
   }
 }) => {
-  const [loading, setLoading] = useState(true);
   const [detail, setDetail] = useState({
     loading: true,
     result: {
@@ -15,7 +16,11 @@ export default ({
       backgroundImage,
       poster,
       overview,
-      votes
+      votes,
+      //기본값을 설정 안 해주면 로딩이 안 됐을 때 에러가 남
+      videos: {
+        results: []
+      }
     }
   });
   const getData = async () => {
@@ -41,5 +46,10 @@ export default ({
   React.useLayoutEffect(() => {
     navigation.setOptions({ title });
   });
-  return <DetailPresenter {...detail} />;
+
+  const openBrowser = async url => {
+    await WebBrowser.openBrowserAsync(url);
+  };
+  
+  return <DetailPresenter openBrowser={openBrowser} {...detail} />;
 };

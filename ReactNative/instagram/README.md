@@ -38,3 +38,8 @@
 ## Extras
 
 - [x] S3 Image Upload
+
+## DMs
+
+- [x] See Room
+- [x] Send Message (Create Room)

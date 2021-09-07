@@ -28,5 +28,13 @@
 ## Comments
 
 - [x] Comment on Photo
-- [ ] Edit Comment
-- [ ] Delete Comment (Is Mine)
+- [x] Delete Comment
+- [x] Edit Comment
+
+## Refactor
+
+- [x] Mutation Responses
+
+## Extras
+
+- [x] S3 Image Upload

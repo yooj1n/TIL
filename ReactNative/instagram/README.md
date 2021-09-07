@@ -43,3 +43,6 @@
 
 - [x] See Room
 - [x] Send Message (Create Room)
+- [x] See Room
+- [x] Computed Fields
+- [x] See (Read) Message

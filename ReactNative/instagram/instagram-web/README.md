@@ -53,3 +53,8 @@ color : red;
 이런식으로 쓸 수 있으며, props를 받을 수도 있다. function에 인자로 props를 쓰면, component로 보내려는 props를 받을 것이다.
 
 light mode 와 dark mode 버젼으로 만드려면 App.js에서 ThemeProvider로 감싸줘야한다.
+
+### 5. LogIn UI
+
+기본적인 특징이 같은 div들이 여러개 있을 때 모든 박스의 기본이 되는 박스를 하나 만들고 그 다음에, 차이가 있는 특징을 적용하기 위해 다른 박스를 만들고 extend를 상속한다.
+&:: placeholder, &:last-child (규칙)

@@ -58,3 +58,9 @@ light mode 와 dark mode 버젼으로 만드려면 App.js에서 ThemeProvider로
 
 기본적인 특징이 같은 div들이 여러개 있을 때 모든 박스의 기본이 되는 박스를 하나 만들고 그 다음에, 차이가 있는 특징을 적용하기 위해 다른 박스를 만들고 extend를 상속한다.
 &:: placeholder, &:last-child (규칙)
+
+### 6. Shared Components
+
+- Routes들을 Link 태그로 하나씩 걸면 오타 에러가 나도 찾기가 힘들다. 그래서 따로 routes.js 파일을 만들어 모아놓고 관리하면 오타 에러를 줄일 수 있다.
+- 각 페이지들의 반복적인 스타일들(공유될 수 있는 각 컴포넌트들)을 개별의 컴포넌트 파일을 만들어서 공유할 수 있도록 한다.
+(src > component > auth 폴더 참고)

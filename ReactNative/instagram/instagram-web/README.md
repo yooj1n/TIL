@@ -63,4 +63,11 @@ light mode 와 dark mode 버젼으로 만드려면 App.js에서 ThemeProvider로
 
 - Routes들을 Link 태그로 하나씩 걸면 오타 에러가 나도 찾기가 힘들다. 그래서 따로 routes.js 파일을 만들어 모아놓고 관리하면 오타 에러를 줄일 수 있다.
 - 각 페이지들의 반복적인 스타일들(공유될 수 있는 각 컴포넌트들)을 개별의 컴포넌트 파일을 만들어서 공유할 수 있도록 한다.
-(src > component > auth 폴더 참고)
+  (src > component > auth 폴더 참고)
+
+### 7. Helmetprovider
+
+창의 제목 바꿔주려면 바꿀 해당페이지에서 맨위에 Helmet 태그로 작성해주고
+App.js에서 전체를 HelmetProvider로 감싸줘야한다.
+
+### 8. React Hook Forms

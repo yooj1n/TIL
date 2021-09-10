@@ -8,6 +8,7 @@ import Button from "../components/auth/Button";
 import AuthLayout from "../components/auth/Container";
 import FormBox from "../components/auth/FormBox";
 import Input from "../components/auth/Input";
+import PageTitle from "../components/PageTitle";
 import { FatLink } from "../components/shared";
 import routes from "../routes";
 
@@ -26,6 +27,7 @@ margin-top: 15px;
 function SingUp() {
   return (
       <AuthLayout>
+        <PageTitle title="Sign up" />
         <FormBox>
           <HeaderContainer>
             <FontAwesomeIcon icon={faInstagram} size="3x" />

@@ -71,3 +71,5 @@ light mode 와 dark mode 버젼으로 만드려면 App.js에서 ThemeProvider로
 App.js에서 전체를 HelmetProvider로 감싸줘야한다.
 
 ### 8. React Hook Forms
+
+useForm을 사용하여 input을 쉽게 핸들링 할 수 있음

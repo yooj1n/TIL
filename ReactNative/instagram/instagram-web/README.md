@@ -77,3 +77,6 @@ useForm을 사용하여 input을 쉽게 핸들링 할 수 있음
 ### 9. Apollo client
 
 Apollo.js에 new Apolloclient로 백엔드 서버 uri와 cache 설정을 해준다.
+App.js에서 ApolloProvider로 감싸준다.
+
+### 10. Login Mutation

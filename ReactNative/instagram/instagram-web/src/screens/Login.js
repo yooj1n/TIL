@@ -3,6 +3,7 @@ import {faFacebookSquare, faInstagram} from "@fortawesome/free-brands-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
+import { logUserIn } from "../apollo";
 import BottomBox from "../components/auth/BottomBox";
 import Button from "../components/auth/Button";
 import AuthLayout from "../components/auth/Container";
@@ -35,7 +36,7 @@ const LOGIN_MUTATION = gql`
 function Login() {
   // input을 쉽게 핸들링 할 수 있는 Hook(register랑 handleSubmit은 지원해주는 기능임)
   // //7.0.0 이상 버전에선 formState안에 errors가 적용되어있다.
-  const {register, handleSubmit, formState, getValues, setError} = useForm({
+  const {register, handleSubmit, formState, getValues, setError, clearErrors} = useForm({
     mode: "onChange" //변화가 일어날때마다 감지.
   });
   const onCompleted = (data) => {
@@ -43,9 +44,14 @@ function Login() {
       login: {ok, error, token},
     } = data;
     if (!ok) {
+      return (
       setError("result", {
         message:error,
-      });
+        })
+      );
+    }
+    if (token) {
+      logUserIn(token);
     }
   };
   //mutation을 사용할 수 있는 Hook
@@ -64,6 +70,10 @@ function Login() {
       variables: {username, password}
     })
   }
+  const clearLoginError = () => {
+    //arg없이 호출하면 모든 에러들을 없애줄 것이다.
+    clearErrors("result")
+  }
   return (
       <AuthLayout>
         <PageTitle title="Login" />
@@ -77,10 +87,11 @@ function Login() {
               "username",{ //value name
                 required: "Username is required", 
                 minLength: {
-                  value:5,
+                  value:4,
                   message: "Username should be longer than 5 chars"
                 },
-              })} 
+              })}
+            onFocus={clearLoginError}
             name="username" 
             type="text" 
             placeholder="Username"
@@ -91,9 +102,10 @@ function Login() {
             {...register(
               "password",{
                 required: "password is required"
-              })} 
+              })}
             type="password" 
             placeholder="Password"
+            onFocus={clearLoginError}
             hasError={Boolean(formState.errors?.password?.message)} 
             />
             <FormError message={formState.errors?.password?.message} />

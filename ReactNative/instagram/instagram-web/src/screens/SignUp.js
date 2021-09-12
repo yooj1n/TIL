@@ -1,7 +1,10 @@
+import { gql, useMutation } from "@apollo/client";
 import {
   faInstagram,
 } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useForm } from "react-hook-form";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import BottomBox from "../components/auth/BottomBox";
 import Button from "../components/auth/Button";
@@ -24,31 +27,115 @@ text-align: center;
 margin-top: 15px;
 `;
 
+const CREATE_ACCOUNT_MUTATION = gql`
+  mutation createAccount(
+    $firstName: String!
+    $lastName: String
+    $username: String!
+    $email: String!
+    $password: String!
+  ) {
+    createAccount(
+      firstName: $firstName
+      lastName: $lastName
+      username: $username
+      email: $email
+      password: $password
+    ) {
+      ok
+      error
+    }
+  }
+`;
+
 function SingUp() {
+  const history = useHistory();
+  const onCompleted = (data) => {
+    const {
+      createAccount: { ok, error },
+    } = data;
+    if (!ok) {
+      return;
+    }
+    history.push(routes.home);
+  };
+  const [createAccount, { loading }] = useMutation(CREATE_ACCOUNT_MUTATION, {
+    onCompleted,
+  });
+  const { register, handleSubmit, formState } = useForm({
+    mode: "onChange",
+  });
+  const onSubmitValid = (data) => {
+    if (loading) {
+      return;
+    }
+    createAccount({
+      variables: {
+        ...data, //Input에 작성된 모든 data
+      },
+    });
+  };
   return (
-      <AuthLayout>
-        <PageTitle title="Sign up" />
-        <FormBox>
-          <HeaderContainer>
-            <FontAwesomeIcon icon={faInstagram} size="3x" />
-            <Subtitle>
-              Sign up to see photos and videos from your freinds.
-            </Subtitle>
-          </HeaderContainer>
-          <form>
-            <Input type="text" placeholder="Name" />
-            <Input type="text" placeholder="Email" />
-            <Input type="text" placeholder="Username" />
-            <Input type="password" placeholder="Password" />
-            <Button type="submit" value="Log in" />
-          </form>
-        </FormBox>
-      <BottomBox 
-      cta="Have an account?"
-      linkText="Log in"
-      link={routes.home}
-      />
-      </AuthLayout>
+    <AuthLayout>
+      <PageTitle title="Sign up" />
+      <FormBox>
+        <HeaderContainer>
+          <FontAwesomeIcon icon={faInstagram} size="3x" />
+          <Subtitle>
+            Sign up to see photos and videos from your friends.
+          </Subtitle>
+        </HeaderContainer>
+        <form onSubmit={handleSubmit(onSubmitValid)}>
+          <Input
+            {...register(
+              "firstName",{
+                required: "First name is required"
+              })}
+            name="firstName"
+            type="text"
+            placeholder="First Name"
+          />
+          <Input
+            {...register(
+              "lastName",
+              )}
+            type="text"
+            placeholder="Last Name"
+            name="lastName"
+          />
+          <Input
+            {...register(
+              "email",{
+                required: "Email is required"
+              })}
+            type="text"
+            placeholder="Email"
+          />
+          <Input
+            {...register(
+            "username",{
+              required: "Username is required"
+            })}
+            type="text"
+            placeholder="Username"
+          />
+          <Input
+            {...register(
+              "password",{
+                required: "password is required"
+              })}
+            type="password"
+            placeholder="Password"
+          />
+          <Button
+            type="submit"
+            value={loading ? "Loading..." : "Sign up"}
+            disabled={!formState.isValid || loading}
+          />
+        </form>
+      </FormBox>
+      <BottomBox cta="Have an account?" linkText="Log in" link={routes.home} />
+    </AuthLayout>
   );
 }
 export default SingUp;

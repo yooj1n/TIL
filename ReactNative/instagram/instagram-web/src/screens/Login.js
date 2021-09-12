@@ -22,7 +22,6 @@ const FacebookLogin = styled.div`
   }
 `;
 
-//backend랑 연결되는 것 아님.
 const LOGIN_MUTATION = gql`
   mutation login($username: String!, $password: String!) {
     login(username : $username, password : $password) {

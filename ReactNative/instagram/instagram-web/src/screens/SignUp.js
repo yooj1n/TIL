@@ -27,6 +27,7 @@ text-align: center;
 margin-top: 15px;
 `;
 
+
 const CREATE_ACCOUNT_MUTATION = gql`
   mutation createAccount(
     $firstName: String!
@@ -51,18 +52,19 @@ const CREATE_ACCOUNT_MUTATION = gql`
 function SingUp() {
   const history = useHistory();
   const onCompleted = (data) => {
+    const {username, password} = getValues();
     const {
       createAccount: { ok, error },
     } = data;
     if (!ok) {
       return;
     }
-    history.push(routes.home);
+    history.push(routes.home, {message : "Account Created. You can Log In", username, password});
   };
   const [createAccount, { loading }] = useMutation(CREATE_ACCOUNT_MUTATION, {
     onCompleted,
   });
-  const { register, handleSubmit, formState } = useForm({
+  const { register, handleSubmit, formState, getValues } = useForm({
     mode: "onChange",
   });
   const onSubmitValid = (data) => {

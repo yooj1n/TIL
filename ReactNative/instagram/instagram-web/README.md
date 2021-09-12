@@ -70,7 +70,7 @@ light mode 와 dark mode 버젼으로 만드려면 App.js에서 ThemeProvider로
 창의 제목 바꿔주려면 바꿀 해당페이지에서 맨위에 Helmet 태그로 작성해주고
 App.js에서 전체를 HelmetProvider로 감싸줘야한다.
 
-### 8. React Hook Forms
+### 8. React Hook Forms 
 
 useForm을 사용하여 input을 쉽게 핸들링 할 수 있음
 

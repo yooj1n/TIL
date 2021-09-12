@@ -2,6 +2,7 @@ import { gql, useMutation } from "@apollo/client";
 import {faFacebookSquare, faInstagram} from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useForm } from "react-hook-form";
+import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { logUserIn } from "../apollo";
 import BottomBox from "../components/auth/BottomBox";
@@ -22,6 +23,10 @@ const FacebookLogin = styled.div`
   }
 `;
 
+const Notification = styled.div`
+color: green;
+`;
+
 const LOGIN_MUTATION = gql`
   mutation login($username: String!, $password: String!) {
     login(username : $username, password : $password) {
@@ -33,10 +38,15 @@ const LOGIN_MUTATION = gql`
 `;
 
 function Login() {
+  const location = useLocation();
   // input을 쉽게 핸들링 할 수 있는 Hook(register랑 handleSubmit은 지원해주는 기능임)
   // //7.0.0 이상 버전에선 formState안에 errors가 적용되어있다.
   const {register, handleSubmit, formState, getValues, setError, clearErrors} = useForm({
-    mode: "onChange" //변화가 일어날때마다 감지.
+    mode: "onChange", //변화가 일어날때마다 감지.
+    defaultValues: { //sign up때 작성했던 username과 password를 가져와서 input창에 나타내줌.
+      username: location?.state?.username || "",
+      password: location?.state?.password || "",
+    }
   });
   const onCompleted = (data) => {
     const {
@@ -81,6 +91,7 @@ function Login() {
             <FontAwesomeIcon icon={faInstagram} size="3x" />
           </div>
           <form onSubmit={handleSubmit(onSubmitValid)}>
+          <Notification>{location?.state?.message}</Notification>
             <Input 
             {...register(
               "username",{ //value name

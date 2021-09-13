@@ -14,6 +14,7 @@ import Input from "../components/auth/Input";
 import PageTitle from "../components/PageTitle";
 import { FatLink } from "../components/shared";
 import routes from "../routes";
+import FormError from "../components/FormError";
 
 const HeaderContainer = styled.div`
  display: flex;
@@ -57,14 +58,18 @@ function SingUp() {
       createAccount: { ok, error },
     } = data;
     if (!ok) {
-      return;
+      return (
+        setError("result", {
+          message:error,
+          })
+        );
     }
-    history.push(routes.home, {message : "Account Created. You can Log In", username, password});
+    history.push(routes.home, {message : "Account Created. You can Log In!", username, password});
   };
   const [createAccount, { loading }] = useMutation(CREATE_ACCOUNT_MUTATION, {
     onCompleted,
   });
-  const { register, handleSubmit, formState, getValues } = useForm({
+  const { register, handleSubmit, formState, getValues, setError, clearErrors } = useForm({
     mode: "onChange",
   });
   const onSubmitValid = (data) => {
@@ -77,6 +82,10 @@ function SingUp() {
       },
     });
   };
+  const clearLoginError = () => {
+    //arg없이 호출하면 모든 에러들을 없애줄 것이다.
+    clearErrors("result")
+  }
   return (
     <AuthLayout>
       <PageTitle title="Sign up" />
@@ -93,10 +102,12 @@ function SingUp() {
               "firstName",{
                 required: "First name is required"
               })}
+            onFocus={clearLoginError}
             name="firstName"
             type="text"
             placeholder="First Name"
           />
+          <FormError message={formState.errors?.firstName?.message} />
           <Input
             {...register(
               "lastName",
@@ -110,25 +121,31 @@ function SingUp() {
               "email",{
                 required: "Email is required"
               })}
+            onFocus={clearLoginError}
             type="text"
             placeholder="Email"
           />
+          <FormError message={formState.errors?.email?.message} />
           <Input
             {...register(
             "username",{
               required: "Username is required"
             })}
+            onFocus={clearLoginError}
             type="text"
             placeholder="Username"
           />
+          <FormError message={formState.errors?.username?.message} />
           <Input
             {...register(
               "password",{
                 required: "password is required"
               })}
+            onFocus={clearLoginError}
             type="password"
             placeholder="Password"
           />
+          <FormError message={formState.errors?.password?.message} />
           <Button
             type="submit"
             value={loading ? "Loading..." : "Sign up"}

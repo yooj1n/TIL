@@ -14,6 +14,7 @@ import Separator from "../components/auth/Separator";
 import FormError from "../components/FormError";
 import PageTitle from "../components/PageTitle";
 import routes from "../routes";
+import Notification from "../components/Notification";
 
 const FacebookLogin = styled.div`
   color: #385285;
@@ -21,10 +22,6 @@ const FacebookLogin = styled.div`
     margin-left: 10px;
     font-weight: 600;
   }
-`;
-
-const Notification = styled.div`
-color: green;
 `;
 
 const LOGIN_MUTATION = gql`
@@ -91,7 +88,7 @@ function Login() {
             <FontAwesomeIcon icon={faInstagram} size="3x" />
           </div>
           <form onSubmit={handleSubmit(onSubmitValid)}>
-          <Notification>{location?.state?.message}</Notification>
+          <Notification message={location?.state?.message} />
             <Input 
             {...register(
               "username",{ //value name

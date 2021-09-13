@@ -4,13 +4,17 @@ import reset from "styled-reset";
 export const lightTheme = {
  accent: "#0095f6",
  bgColor: "#FAFAFA",
+ inputFontColor: "black",
  fontColor: "rgb(38,38,38)",
  borderColor: "rgb(219, 219, 219)",
 };
 
 export const darkTheme = {
+  accent: "#0095f6",
+  inputFontColor: "black",
   fontColor: "white",
-  bgColor: "#2c2c2c",
+  bgColor: "#1E1F21",
+  boxColor: "#292A2D"
 };
 
 export const GlobalStyles = createGlobalStyle`

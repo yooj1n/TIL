@@ -26,6 +26,10 @@ const DarkModeBtn = styled.span`
 cursor: pointer;
 `;
 
+const Modemessage = styled.span`
+margin-left: 5px;
+`;
+
 function AuthLayout({children}) {
   const darkeMode = useReactiveVar(darkModeVar);
   return (
@@ -36,6 +40,7 @@ function AuthLayout({children}) {
       <Footer>
         <DarkModeBtn onClick={darkeMode ? disableDarkMode : enableDarkMode}>
           <FontAwesomeIcon icon={darkeMode ? faSun : faMoon} />
+          <Modemessage>{darkeMode ? "Light Mode" : "Dark Mode"}</Modemessage>
         </DarkModeBtn>
       </Footer>
     </Container>

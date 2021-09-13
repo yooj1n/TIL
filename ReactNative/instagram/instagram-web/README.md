@@ -70,7 +70,7 @@ light mode 와 dark mode 버젼으로 만드려면 App.js에서 ThemeProvider로
 창의 제목 바꿔주려면 바꿀 해당페이지에서 맨위에 Helmet 태그로 작성해주고
 App.js에서 전체를 HelmetProvider로 감싸줘야한다.
 
-### 8. React Hook Forms 
+### 8. React Hook Forms
 
 useForm을 사용하여 input을 쉽게 핸들링 할 수 있음
 
@@ -80,3 +80,12 @@ Apollo.js에 new Apolloclient로 백엔드 서버 uri와 cache 설정을 해준�
 App.js에서 ApolloProvider로 감싸준다.
 
 ### 10. Login Mutation
+
+### 11. Sign up
+
+### 12. Dark Mode
+
+### 13. Header and Layout
+
+Header를 감싸고 있는 Layout 컴포넌트(Layout.js)를 하나 만들어서 App.js에서
+원하는 페이지에만 Layout을 감싸준다.

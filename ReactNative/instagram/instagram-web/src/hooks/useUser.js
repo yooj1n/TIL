@@ -13,7 +13,7 @@ const ME_QUERY = gql`
 
 function useUser() {
   const hasToken = useReactiveVar(isLoggedInVar); //user가 로그인했는지 확인 (리액트 상에서)
-  const { data } = useQuery(ME_QUERY, {
+  const {data} = useQuery(ME_QUERY, {
     fetchPolicy: "no-cache",
     skip: !hasToken, //사용자가 Local storage의 토큰을 통해 로그인하지 않은 경우에는 이 쿼리를 실행하지 않는다.
   });
@@ -24,6 +24,6 @@ function useUser() {
       logUserOut();
     }
   }, [data]);
-  return;
+  return {data};
 }
 export default useUser;

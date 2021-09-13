@@ -87,5 +87,11 @@ App.js에서 ApolloProvider로 감싸준다.
 
 ### 13. Header and Layout
 
+#### Layout
+
 Header를 감싸고 있는 Layout 컴포넌트(Layout.js)를 하나 만들어서 App.js에서
 원하는 페이지에만 Layout을 감싸준다.
+
+#### User의 실제 Avatar로 바꿔주기
+
+#### Token이 올바른지 확인하기(틀렸다면 localstorage에서 삭제시키기)

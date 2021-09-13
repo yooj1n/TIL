@@ -1,7 +1,8 @@
-import { ApolloClient, InMemoryCache, makeVar } from "@apollo/client";
+import { ApolloClient, createHttpLink, InMemoryCache, makeVar } from "@apollo/client";
 import routes from "./routes";
+import { setContext } from "@apollo/client/link/context";
 
-const TOKEN = "token"
+const TOKEN = "TOKEN"
 const DARK_MODE = "DARK_MODE"
 
 //새로고침을 해도 TOKEN의 유무에 따라 로그인 상태를 유지시킬 수 있음.
@@ -15,7 +16,7 @@ export const logUserIn = (token) => {
 
 export const logUserOut = (history) => {
   localStorage.removeItem(TOKEN);
-  history?.replace();
+  history?.replace(routes.home, null);
   window.location.reload();
 
 }
@@ -31,7 +32,20 @@ export const disableDarkMode = () => {
   darkModeVar(false);
 }
 
-export const client = new ApolloClient({
+const httpLink = createHttpLink({
   uri: "http://localhost:4000/graphql",
+});
+
+const authLink = setContext((_, { headers }) => {
+  return {
+    headers: {
+      ...headers,
+      token: localStorage.getItem(TOKEN),
+    },
+  };
+});
+
+export const client = new ApolloClient({
+  link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
 });

@@ -11,6 +11,7 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import Avatar from "../Avatar";
 import { FatText } from "../shared";
+import Comments from "./Comments";
 
 const TOGGLE_LIKE_MUTATION = gql`
   mutation toggleLike($id: Int!) {
@@ -22,9 +23,10 @@ const TOGGLE_LIKE_MUTATION = gql`
 `;
 
 const PhotoContainer = styled.div`
-  background-color: white;
+  background-color: ${(props) => props.theme.boxColor};
   border-radius: 4px;
   border: 1px solid ${(props) => props.theme.borderColor};
+  margin: 0px auto;
   margin-bottom: 60px;
   max-width: 615px;
 `;
@@ -37,7 +39,7 @@ const PhotoHeader = styled.div`
 
 const Username = styled(FatText)`
   margin-left: 15px;
-  color: black;
+  color: ${(props) => props.theme.fontColor};
 `;
 
 const PhotoFile = styled.img`
@@ -50,7 +52,7 @@ const PhotoData = styled.div`
 `;
 
 const PhotoActions = styled.div`
-  color: black;
+  color: ${(props) => props.theme.fontColor};
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -71,10 +73,11 @@ const PhotoAction = styled.div`
 const Likes = styled(FatText)`
   margin-top: 15px;
   display: block;
-  color: black;
+  color: ${(props) => props.theme.fontColor};;
 `;
 
-function Photo({ id, user, file, isLiked, likes }) {
+
+function Photo({ id, user, file, isLiked, likes, caption, commentNumber, comments }) {
   const updateToggleLike = (cache, result) => {
     const {
       data: {
@@ -143,6 +146,12 @@ function Photo({ id, user, file, isLiked, likes }) {
           </div>
         </PhotoActions>
         <Likes>{likes === 1 ? "1 like" : `${likes} likes`}</Likes>
+        <Comments
+          author={user.username}
+          caption={caption}
+          commentNumber={commentNumber}
+          comments={comments}
+        />
       </PhotoData>
     </PhotoContainer>
   );
@@ -154,8 +163,10 @@ Photo.propTypes = {
     avatar: PropTypes.string,
     username: PropTypes.string.isRequired,
   }),
+  caption: PropTypes.string,
   file: PropTypes.string.isRequired,
   isLiked: PropTypes.bool.isRequired,
   likes: PropTypes.number.isRequired,
+  commentNumber: PropTypes.number.isRequired,
 };
 export default Photo;

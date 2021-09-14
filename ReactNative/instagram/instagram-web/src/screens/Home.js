@@ -4,20 +4,30 @@ import Photo from "../components/feed/Photo";
 import PageTitle from "../components/PageTitle";
 
 const FEED_QUERY = gql`
-query seeFeed {
-  seeFeed {
-    id
-    user {
-      username
-      avatar
-    }
-    file
-    caption
-    likes
-    comments
-    createdAt
-    isMine
-    isLiked
+  query seeFeed {
+    seeFeed {
+      id
+      user {
+        username
+        avatar
+      }
+      file
+      caption
+      likes 
+      comments {
+        id
+        user {
+          username
+          avatar
+        }
+        payload
+        isMine
+        createdAt
+      }
+      commentNumber
+      createdAt
+      isMine
+      isLiked
     }
   }
 `;

@@ -14,6 +14,7 @@
 - [x] npm install --save @fortawesome/free-brands-svg-icons
 - [x] npm install --save @fortawesome/free-regular-svg-icons
 - [x] npm i styled-reset
+- [x] npm i sanitize-html
 
 ## Setup
 

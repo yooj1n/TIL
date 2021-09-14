@@ -18,7 +18,6 @@ function useUser() {
     skip: !hasToken, //사용자가 Local storage의 토큰을 통해 로그인하지 않은 경우에는 이 쿼리를 실행하지 않는다.
   });
   //useEffect는 hook이 마운트되면 한 번 실행되고, [데이터]가 변경될 때마다 실행
-  console.log(data);
   useEffect(() => {
     if (data?.me === null) {
       logUserOut();

@@ -75,13 +75,34 @@ const Likes = styled(FatText)`
 `;
 
 function Photo({ id, user, file, isLiked, likes }) {
-  const [toggleLikeMutation, { loading }] = useMutation(TOGGLE_LIKE_MUTATION, {
+  const updateToggleLike = (cache, result) => {
+    const {
+      data: {
+        toggleLike: { ok },
+      },
+    } = result;
+    if (ok) {
+      cache.writeFragment({
+        id: `Photo:${id}`,
+        fragment: gql`
+          fragment BSName on Photo {
+            isLiked
+          }
+        `,
+        data: {
+          isLiked: !isLiked,
+        },
+      });
+    }
+  };
+  const [toggleLikeMutation] = useMutation(TOGGLE_LIKE_MUTATION, {
     variables: {
       id,
     },
     // //FEED_QUERY를 다시 호출하고, User가 알아차리지 못하게 apollo가 cache를 update 할 수 있으나 
     // 쿼리 전체를 update 해야해서 좋은 방법이 아님.
     // refetchQueries: [{query: FEED_QUERY}]
+    update: updateToggleLike,
   });
   return (
     <PhotoContainer key={id}>

@@ -4,9 +4,28 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import { FatText } from "../shared";
 import { Link } from "react-router-dom";
+import { gql, useMutation } from "@apollo/client";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
+
+const DELETE_COMMENT_MUTATION = gql`
+  mutation deleteComment($id: Int!) {
+    deleteComment(id: $id) {
+      ok
+    }
+  }
+`;
 
 const CommentContainer = styled.div`
   margin-bottom: 7px;
+  display: flex;
+  button {
+    margin-left: 30px;
+    font-size: 12px;
+    background-color: inherit;
+    border: none;
+    color:${(props) => props.theme.fontColor};
+  }
 `;
 
 const CommentCaption = styled.span`
@@ -21,7 +40,35 @@ const CommentCaption = styled.span`
   }
 `;
 
-function Comment({ author, payload }) {
+function Comment({ id, photoId, isMine, author, payload }) {
+  const updateDeleteComment = (cache, result) => {
+    const {
+      data: {
+        deleteComment: { ok },
+      },
+    } = result;
+    if (ok) {
+      //해당 데이터를 cache에서 삭제
+      cache.evict({ id: `Comment:${id}` });
+      cache.modify({
+        id: `Photo:${photoId}`,
+        fields: {
+          commentNumber(prev) {
+            return prev - 1;
+          },
+        },
+      });
+    }
+  };
+  const [deleteCommentMutation] = useMutation(DELETE_COMMENT_MUTATION, {
+    variables: {
+      id,
+    },
+    update: updateDeleteComment,
+  });
+  const onDeleteClick = () => {
+    deleteCommentMutation();
+  };
   return (
     <CommentContainer>
       <FatText>{author}</FatText>
@@ -38,11 +85,15 @@ function Comment({ author, payload }) {
           )
         )}
       </CommentCaption>
+      {isMine ? <button onClick={onDeleteClick}><FontAwesomeIcon icon={faTrash}/></button> : null}
     </CommentContainer>
   );
 }
 
 Comment.propTypes = {
+  id:PropTypes.number,
+  isMine: PropTypes.bool,
+  photoId: PropTypes.number,
   author: PropTypes.string.isRequired,
   payload: PropTypes.string.isRequired,
 };

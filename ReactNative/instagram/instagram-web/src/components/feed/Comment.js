@@ -1,5 +1,4 @@
 import React from "react";
-import sanitizeHtml from "sanitize-html";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import { FatText } from "../shared";
@@ -7,6 +6,7 @@ import { Link } from "react-router-dom";
 import { gql, useMutation } from "@apollo/client";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
+
 
 const DELETE_COMMENT_MUTATION = gql`
   mutation deleteComment($id: Int!) {
@@ -71,7 +71,9 @@ function Comment({ id, photoId, isMine, author, payload }) {
   };
   return (
     <CommentContainer>
-      <FatText>{author}</FatText>
+      <Link to ={`/users/${author}`}>
+        <FatText>{author}</FatText>
+      </Link>
       <CommentCaption>
         {/* sanitizeHtml과 dangerouslySetInnerHTML를 이용하여 parsing하면 클릭하여 링크로 보내기 힘들다*/}
         {payload.split(" ").map((word, index) =>

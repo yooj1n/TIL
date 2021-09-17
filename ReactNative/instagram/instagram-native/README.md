@@ -1,0 +1,2 @@
+- [x] expo install expo-app-loading
+- [x] expo install expo-font

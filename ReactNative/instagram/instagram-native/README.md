@@ -1,2 +1,6 @@
 - [x] expo install expo-app-loading
 - [x] expo install expo-font
+- [x] expo install expo-asset
+- [x] npm install @react-navigation/native
+- [x] expo install react-native-gesture-handler react-native-reanimated react-native-screens react-native-safe-area-context @react-native-community/masked-view
+- [x] npm install @react-navigation/native-stack

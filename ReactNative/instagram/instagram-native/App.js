@@ -14,7 +14,7 @@ export default function App() {
     const fontPromises = fontsToLoad.map((font) => Font.loadAsync(font));
     const imagesToLoad = [
       require("./assets/icon.png"),
-      "./assets/Instagram-name-logo-transparent-PNG.png"
+      "./assets/logo.png"
     ]
     const imagePromises = imagesToLoad.map((image) => Asset.loadAsync(image))
     return Promise.all([...fontPromises, ...imagePromises]); 
@@ -29,9 +29,9 @@ export default function App() {
     );
   }
   return (
-    <NavigationContainer>
-      <LoggedOutNav />
-    </NavigationContainer>
+      <NavigationContainer>
+        <LoggedOutNav />
+      </NavigationContainer>
   )
 }
 

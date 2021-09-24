@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { TextInput } from "react-native";
+import { KeyboardAvoidingView, Platform, TextInput } from "react-native";
 import styled from "styled-components/native";
 import AuthButton from "../components/Auth/AuthButton";
 import AuthLayout from "../components/Auth/AuthLayout";
@@ -24,6 +24,13 @@ export default function CreateAccount(){
   }
   return (
     <AuthLayout>
+      <KeyboardAvoidingView
+      style={{
+        width: "100%",
+      }}
+      behavior="padding"
+      keyboardVerticalOffset = {Platform.OS === "ios" ? 50 : 0}
+      >
     <TextInput
       placeholder="First Name"
       placeholderTextColor="gray"
@@ -66,6 +73,7 @@ export default function CreateAccount(){
       onSubmitEditing={onDone}
     />
     <AuthButton text="Create Account" disabled={true} onPress={() => null} />
+    </KeyboardAvoidingView>
   </AuthLayout>
   );
 }

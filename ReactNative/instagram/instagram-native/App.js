@@ -5,16 +5,20 @@ import * as Font from "expo-font";
 import { Asset } from 'expo-asset';
 import LoggedOutNav from "./navigators/LoggedOutNav";
 import { NavigationContainer } from "@react-navigation/native";
+import { ApolloProvider, useReactiveVar } from "@apollo/client";
+import client, { isLoggedInVar } from "./apollo";
+import LoggedInNav from "./navigators/LoggenInNav";
 
 export default function App() {
   const [loading, setLoading] = useState(true);
   const onFinish = () => setLoading(false);
+  const isLoggedIn = useReactiveVar(isLoggedInVar);
   const preload = () => {
     const fontsToLoad = [Ionicons.font];
     const fontPromises = fontsToLoad.map((font) => Font.loadAsync(font));
     const imagesToLoad = [
       require("./assets/icon.png"),
-      "./assets/logo.png"
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo.svg/840px-Instagram_logo.svg.png"
     ]
     const imagePromises = imagesToLoad.map((image) => Asset.loadAsync(image))
     return Promise.all([...fontPromises, ...imagePromises]); 
@@ -29,9 +33,11 @@ export default function App() {
     );
   }
   return (
+    <ApolloProvider client={client}>
       <NavigationContainer>
-        <LoggedOutNav />
+        {isLoggedIn ? <LoggedInNav /> : <LoggedOutNav />}
       </NavigationContainer>
+      </ApolloProvider>
   )
 }
 

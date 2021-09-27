@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useEffect } from "react/cjs/react.production.min";
 import AuthButton from "../components/Auth/AuthButton";
 import AuthLayout from "../components/Auth/AuthLayout";
 import { TextInput } from "../components/Auth/AuthShared";
@@ -16,8 +16,12 @@ export default function Login() {
   };
 
   useEffect(() => {
-    register("username");
-    register("password");
+    register("username", {
+      required: true,
+    });
+    register("password", {
+      required: true,
+    });
   }, [register]);
 
   return (
@@ -42,7 +46,7 @@ export default function Login() {
       />
       <AuthButton
         text="Log In"
-        disabled={false}
+        disabled={true}
         onPress={handleSubmit(onValid)}
       />
     </AuthLayout>

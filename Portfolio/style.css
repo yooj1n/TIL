@@ -446,7 +446,7 @@ p {
 
 /* Contact */
 #contact {
-  background-color: var(--color-pink);
+  background-color: var(--color-black);
 }
 
 .contact__title,
@@ -468,6 +468,27 @@ p {
 .contact__links i:hover {
   transform: scale(1.1);
   color: var(--color-yellow);
+}
+
+/* */
+.arrow-up {
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+  width: 50px;
+  height: 50px;
+  font-size: 30px;
+  background-color: var(--color-dark-grey);
+  color: var(--color-light-white);
+  border-radius: 50%;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 300ms ease-in;
+}
+
+.arrow-up.visible {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 /* For below 768px screen width */

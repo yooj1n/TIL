@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "interaction",
+    "slug": "interaction",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "interaction"
+}

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Animated } from 'react-native';
 import styled from 'styled-components/native';
 
 const Container = styled.View`
@@ -13,10 +14,19 @@ height: 200px;
 background-color: tomato;
 `
 
+const AnimatedBox = Animated.createAnimatedComponent(Box);
+
 export default function App() {
+  const Y = new Animated.Value(0);
+  const moveUp = () => {};
   return (
     <Container>
-      <Box />
+     <AnimatedBox
+        onPress={moveUp}
+        style={{
+          transform: [{ translateY: Y }],
+        }}
+      />
     </Container>
-  )
+  ) 
 }

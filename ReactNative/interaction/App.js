@@ -1,5 +1,5 @@
-import React from 'react';
-import { Animated, TouchableOpacity } from 'react-native';
+import React, { useRef, useState } from 'react';
+import { Animated, Easing, TouchableOpacity } from 'react-native';
 import styled from 'styled-components/native';
 
 const Container = styled.View`
@@ -17,13 +17,14 @@ background-color: tomato;
 const AnimatedBox = Animated.createAnimatedComponent(Box);
 
 export default function App() {
-  const Y = new Animated.Value(0);
+  const [up,SetUp] = useState(false);
+  const toggleUp = () => SetUp((prev) => !prev); 
+  const Y = useRef(new Animated.Value(0)).current; //다시 렌더링될 때마다 초기값으로 돌아가지않게 Value값 기억
   const moveUp = () => {
-    Animated.spring(Y, {
-      toValue: -200,
-      bounciness: 30,
+    Animated.timing(Y, {
+      toValue: up ? 200 : -200,
       useNativeDriver: true,
-    }).start();
+    }).start(toggleUp);
   };
   return (
     <Container>

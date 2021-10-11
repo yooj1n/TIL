@@ -19,30 +19,34 @@ const AnimatedBox = Animated.createAnimatedComponent(Box);
 export default function App() {
   const [up,SetUp] = useState(false);
   const toggleUp = () => SetUp((prev) => !prev); 
-  const Y_POSITION = useRef(new Animated.Value(250)).current; //다시 렌더링될 때마다 초기값으로 돌아가지않게 Value값 기억
+  const POSITION = useRef(new Animated.ValueXY({x:0, y:250})).current; //다시 렌더링될 때마다 초기값으로 돌아가지않게 Value값 기억
   const moveUp = () => {
-    Animated.timing(Y_POSITION, {
+    Animated.timing(POSITION, {
       toValue: up ? 250 : -250,
-      useNativeDriver: true,
+      useNativeDriver: false,
       duration: 2500,
     }).start(toggleUp);
   };
-  const opacity = Y_POSITION.interpolate({
-    inputRange: [-250, 0, 250],
-    outputRange: [1, 0, 1],
+  const rotation = POSITION.y.interpolate({
+    inputRange: [-250, 250],
+    outputRange: ["-360deg", "360deg"],
   })
-  const borderRadius = Y_POSITION.interpolate({
+  const borderRadius = POSITION.y.interpolate({
     inputRange: [-250, 250],
     outputRange: [100, 0],
+  })
+  const bgColor = POSITION.y.interpolate({
+    inputRange: [-250, 250],
+    outputRange: ["rgb(255,99,71)", "rgb(71,166,255)"],
   })
   return (
     <Container>
       <Pressable onPress={moveUp}>
         <AnimatedBox
             style={{
-              opacity,
               borderRadius,
-              transform: [{ translateY: Y_POSITION}],
+              backgroundColor: bgColor,
+              transform: [{rotateY: rotation}, { translateY: POSITION.y}],
             }}
         />
       </Pressable>

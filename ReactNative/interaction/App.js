@@ -33,20 +33,20 @@ export default function App() {
   })
   const panResponder = useRef(PanResponder.create({
     onStartShouldSetPanResponder: () => true, //view에서 touch를 감지할 지 결정할 수 있도록함
-    onPanResponderMove: (_, {dx, dy}) => {
+    onPanResponderGrant: () => { //터치가 시작될 때
+      POSITION.setOffset({
+        x: POSITION.x._value, //숫자 형태로 받아오려면 뒤에 _value를 붙여줘야함
+        y: POSITION.y._value,
+      })
+    },
+    onPanResponderMove: (_, {dx, dy}) => { //터치가 움직일때
       POSITION.setValue({
         x:dx,
         y:dy,
       })
     },
-    onPanResponderRelease: () => {
-      Animated.spring(POSITION, {
-        toValue: {
-          x:0,
-          y:0,
-        },
-        useNativeDriver:false,
-      }).start();
+    onPanResponderRelease: () => { //터치가 끝났을때
+      POSITION.flattenOffset(); //offset 값을 clear 해줌
     }
   })).current;
   return (

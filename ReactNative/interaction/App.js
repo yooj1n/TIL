@@ -1,64 +1,53 @@
 import React, { useRef } from 'react';
-import { Animated, PanResponder } from 'react-native';
+import { Animated, PanResponder, View } from 'react-native';
 import styled from 'styled-components/native';
+import { Ionicons } from "@expo/vector-icons";
 
 const Container = styled.View`
 flex: 1;
 justify-content: center;
 align-items: center;
+background-color: #00a8ff;
 `
 
-const Box = styled.View`
-width: 200px;
-height: 200px;
-background-color: tomato;
-`
-
-const AnimatedBox = Animated.createAnimatedComponent(Box);
+const Card = styled(Animated.createAnimatedComponent(View))`
+  background-color: white;
+  width: 300px;
+  height: 300px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 12px;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+`;
 
 export default function App() {
-  const POSITION = useRef(
-    new Animated.ValueXY({
-      x:0, 
-      y:0
-    })
-  ).current; //다시 렌더링될 때마다 초기값으로 돌아가지않게 Value값 기억
-  const borderRadius = POSITION.y.interpolate({
-    inputRange: [-250, 250],
-    outputRange: [100, 0],
-  })
-  const bgColor = POSITION.y.interpolate({
-    inputRange: [-250, 250],
-    outputRange: ["rgb(255,99,71)", "rgb(71,166,255)"],
-  })
   const panResponder = useRef(PanResponder.create({
-    onStartShouldSetPanResponder: () => true, //view에서 touch를 감지할 지 결정할 수 있도록함
-    onPanResponderGrant: () => { //터치가 시작될 때
-      POSITION.setOffset({
-        x: POSITION.x._value, //숫자 형태로 받아오려면 뒤에 _value를 붙여줘야함
-        y: POSITION.y._value,
-      })
+    onStartShouldSetPanResponder: () => true,
+    onPanResponderMove: (_, {dx}) => {
+      position.setValue(dx);
     },
-    onPanResponderMove: (_, {dx, dy}) => { //터치가 움직일때
-      POSITION.setValue({
-        x:dx,
-        y:dy,
-      })
-    },
-    onPanResponderRelease: () => { //터치가 끝났을때
-      POSITION.flattenOffset(); //offset 값을 clear 해줌
+    onPanResponderGrant: () => onPressIn(),
+    onPanResponderRelease: () => {
+      Animated.parallel([
+        onPressOut,
+        goBackZero
+      ]).start();
     }
-  })).current;
+  })).current
+  const scale = useRef(new Animated.Value(1)).current;
+  const position = useRef(new Animated.Value(0)).current;
+  const onPressIn = () => Animated.spring(scale, {toValue: 0.95,useNativeDriver: true,}).start();
+  const onPressOut = Animated.spring(scale, {toValue: 1, useNativeDriver: true}) //parallel 안에 쓰기 위해서 .start() 빼고 상수로 저장
+  const goBackZero = Animated.spring(position, {toValue: 0,useNativeDriver: true,})
   return (
-    <Container>
-        <AnimatedBox
-          {...panResponder.panHandlers}
-            style={{
-              borderRadius,
-              backgroundColor: bgColor,
-              transform: POSITION.getTranslateTransform(),
-            }}
-        />
-    </Container>
-  ) 
+  <Container>
+    <Card
+    {...panResponder.panHandlers}
+      style={{
+        transform: [{scale}, {translateX: position}]
+      }}>
+    <Ionicons name="pizza" color= "#192a56" size={98}/>
+    </Card>
+  </Container>
+  )
 }

@@ -47,7 +47,7 @@ export default function App() {
   });
   const secondScale = position.interpolate({
     inputRange: [-300, 0, 300],
-    outputRange: [1, 0.7, 1],
+    outputRange: [1, 0.6, 1],
     extrapolate:"clamp"
   });
   //Animations => parallel 안에 쓰기 위해서 .start() 빼고 상수로 저장
@@ -66,12 +66,16 @@ export default function App() {
   const goLeft = Animated.spring(position, {
     toValue: -500,
     tension: 5,
-    useNativeDriver:true
+    useNativeDriver:true,
+    restDisplacementThreshold: 100,
+    restSpeedThreshold: 100,
   })
   const goRight = Animated.spring(position, {
     toValue: 500, 
     tension: 5,
-    useNativeDriver:true
+    useNativeDriver:true,
+    restDisplacementThreshold: 100,
+    restSpeedThreshold: 100,
   })
   //panResponder
   const panResponder = useRef(PanResponder.create({

@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "uj-diary",
+    "slug": "uj-diary",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "uj-diary"
+}

@@ -7,3 +7,5 @@
 - screens 폴더, 파일 생성(Tab screen)
 - App.js\_ NavigatorContainer 안에 Navigator 삽입
 - Home.js styling
+
+### Write Screen

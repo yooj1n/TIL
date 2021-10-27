@@ -5,13 +5,14 @@ import colors from "../colors";
 
 const View = styled.View`
 flex:1;
-padding: 0px 50px;
+padding: 0px 30px;
 padding-top: 100px;
 background-color: ${colors.bgColor};
 `;
 const Title = styled.Text`
   color: ${colors.textColor};
   font-size: 28px;
+  font-weight: 600;
   margin-bottom: 100px;
 
 `;
@@ -30,7 +31,7 @@ box-shadow: 1px 1px 5px rgba(0,0,0,0.3);
 
 const Home = ({navigation : {navigate}}) => (
   <View>
-    <Title>My journal</Title>
+    <Title>My Story</Title>
     <Btn onPress={() => navigate("Write")}>
       <Ionicons name="add" color="white" size={40}/>
     </Btn>

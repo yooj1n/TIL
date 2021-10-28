@@ -11,7 +11,7 @@ background-color: ${colors.bgColor};
 `;
 const Title = styled.Text`
   color: ${colors.textColor};
-  font-size: 28px;
+  font-size: 32px;
   font-weight: 600;
   margin-bottom: 100px;
 

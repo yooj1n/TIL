@@ -14,7 +14,7 @@ margin: 50px 0px;
 margin-top: 50px;
 text-align: center;
 font-size: 28px;
-font-weight: 500;
+font-weight: 600;
 `;
 const TextInput = styled.TextInput`
 background-color: white;
@@ -47,8 +47,8 @@ const Emotions = styled.View`
 const Emotion = styled.TouchableOpacity`
 background-color: white;
 box-shadow: 1px 1px 5px rgba(0,0,0,0.3);
-border-radius: 8px;
-padding: 8px;
+border-radius: 7px;
+padding: 7px;
 border-width: ${(props) => (props.selected ? "1px" : "0px")};
 border-color: rgba(0,0,0,0.6);
 `;

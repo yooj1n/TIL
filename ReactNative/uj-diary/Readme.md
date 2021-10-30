@@ -28,3 +28,8 @@
   context안에 들어가는 값은 realm 커넥션이기 때문에
 - write screen에 useContext를 사용하여 realm 연걸하기 (매번 useContext를 반복하여 import하기 귀찮으니 새로운 hook을 하나 만든다\_useDB)
 - write screen에 navigation:{goback} prop을 넘겨주어 save를 누르면 home screen으로 돌아가게 해준다.
+
+### Reading Objects
+
+- realm.objects를 이용하여 write 했던 array를 받아오기.
+- FlatList를 이용하여 화면에 나타내기

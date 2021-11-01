@@ -59,7 +59,7 @@ const Home = ({navigation : {navigate}}) => {
     //컴포넌트가 mount 되었을 때
     const feelings = realm.objects("Feeling");
     //feelings object에 무슨일이 생겼을 때 호출
-    feelings.addListener((feelings, changes) => {
+    feelings.addListener((feelings) => {
       //state에 어떤 변화가 생겼든지 animate 하고 싶어
       LayoutAnimation.spring();
       setFeelings(feelings.sorted("_id", true))

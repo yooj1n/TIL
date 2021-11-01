@@ -33,3 +33,24 @@
 
 - realm.objects를 이용하여 write 했던 array를 받아오기.
 - FlatList를 이용하여 화면에 나타내기
+
+### App.js
+
+- ready는 준비가 됐는지 아닌지를 확인하기 위함. 만약 준비가 되어있지 않았다면 AppLoading Component를 loading하고, 앱을 실행하기 전에 splash screen을 보여줄 것이다.
+- AppLoading이 mount될 때 startLoading function을 시작
+- startLoading은 realm과 연결해줌. ujDiaryDB 경로를 통해 database를 열고 object 등록을 시작(feelingSchema)
+- database와 연결할 때 App component의 state와 연결
+- ready가 true가 되고 return을 받는다
+- DBContext는 react API일뿐
+
+### Home.js
+
+- useDB는 DBContext에 접근하기 위해 사용된 hook
+- useEffect는 component가 mounte될 때 데이터베이스에서 모든 feelings를 찾게 됨
+- addeventlistener를 통해서 feelings에 어떤 change가 일어나든 알 수 있음.
+
+### Write.js
+
+- useDB를 사용하여 realm에 접근가능
+- 키보드의 done이나 save 버튼을 눌렀을 때 realm.write를 호출한다.
+- goBack function은 navigation prop에 의해 주어진 것

@@ -34,6 +34,37 @@
 - realm.objects를 이용하여 write 했던 array를 받아오기.
 - FlatList를 이용하여 화면에 나타내기
 
+### AdMob (IOS)
+
+- 앱에 광고를 보여주는 방법
+- expo install expo-ads-admob
+- npx pod-install (only for Ios)
+- Ios 폴더 - ujdiary 폴더 - info.plist 안에 아래 붙여넣기
+
+```javascript
+<key>GADApplicationIdentifier</key>
+<string>ca-app-pub-3940256099942544~1458002511</string>
+<key>NSUserTrackingUsageDescription</key>
+<string>This identifier will be used to deliver personalized ads to you.</string>
+```
+
+https://developers.google.com/admob/ios/ios14#skadnetwork 안에 코드도 붙여넣어야함
+
+### AdMob (Android)
+
+- 앱에 광고를 보여주는 방법
+- expo install expo-ads-admob
+- Android 폴더 - app 폴더 - src 폴더 - main 폴더 - AdroidManifest.xml 안에 <Application> 안에 아래코드 붙여넣기
+
+```javascript
+<meta-data
+  android:name="com.google.android.gms.ads.APPLICATION_ID"
+  android:value="ca-app-pub-xxxxxxxxxxxxxxxx~yyyyyyyyyy"
+/>
+```
+
+## 페이지 정리
+
 ### App.js
 
 - ready는 준비가 됐는지 아닌지를 확인하기 위함. 만약 준비가 되어있지 않았다면 AppLoading Component를 loading하고, 앱을 실행하기 전에 splash screen을 보여줄 것이다.

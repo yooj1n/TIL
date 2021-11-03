@@ -1,3 +1,4 @@
+import { AdMobInterstitial } from "expo-ads-admob";
 import React, { useContext, useState } from "react";
 import { Alert } from "react-native";
 import styled from "styled-components/native";
@@ -67,7 +68,7 @@ const Write = ({navigation: {goBack}}) => {
   const [feelings, setFeelings] = useState("");
   const onChangeText = (text) => setFeelings(text);
   const onEmotionPress = (face) => setEmotion(face);
-  const onSubmit = () => {
+  const onSubmit = async () => {
     if (feelings === "" || selectedEmotion == null) {
       return Alert.alert("please complete form.")
     }
@@ -80,7 +81,11 @@ const Write = ({navigation: {goBack}}) => {
         message: feelings
       });
     });
-    goBack();
+    // 광고 재생
+    await AdMobInterstitial.setAdUnitID('ca-app-pub-3940256099942544/4411468910');
+    await AdMobInterstitial.requestAdAsync({ servePersonalizedAds: true});
+    await AdMobInterstitial.showAdAsync();
+    // goBack();
   };
   return (
     <View>

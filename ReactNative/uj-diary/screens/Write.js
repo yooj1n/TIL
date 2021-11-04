@@ -1,4 +1,4 @@
-import { AdMobInterstitial } from "expo-ads-admob";
+import { AdMobInterstitial, AdMobRewarded } from "expo-ads-admob";
 import React, { useContext, useState } from "react";
 import { Alert } from "react-native";
 import styled from "styled-components/native";
@@ -72,20 +72,23 @@ const Write = ({navigation: {goBack}}) => {
     if (feelings === "" || selectedEmotion == null) {
       return Alert.alert("please complete form.")
     }
-    realm.write(() => {
-      //object의 nmae이 Feeling(FeelingSchema참고)
-      const feeling = realm.create("Feeling", {
-        //properties
-        _id: Date.now(),
-        emotion: selectedEmotion,
-        message: feelings
-      });
-    });
-    // 광고 재생
-    await AdMobInterstitial.setAdUnitID('ca-app-pub-3940256099942544/4411468910');
-    await AdMobInterstitial.requestAdAsync({ servePersonalizedAds: true});
-    await AdMobInterstitial.showAdAsync();
-    // goBack();
+      // 광고 재생
+      await AdMobInterstitial.setAdUnitID('ca-app-pub-3940256099942544/4411468910');
+      await AdMobInterstitial.requestAdAsync({ servePersonalizedAds: true});
+      await AdMobInterstitial.showAdAsync();
+      //광고가 닫히면 저장하고 홈화면으로 돌아가기
+      AdMobInterstitial.addEventListener("interstitialDidClose", () => {
+        realm.write(() => {
+          //object의 nmae이 Feeling(FeelingSchema참고)
+          const feeling = realm.create("Feeling", {
+            //properties
+            _id: Date.now(),
+            emotion: selectedEmotion,
+            message: feelings
+          });
+        });
+        goBack();
+      })
   };
   return (
     <View>

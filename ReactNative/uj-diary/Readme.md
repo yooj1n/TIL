@@ -39,7 +39,9 @@
 - 앱에 광고를 보여주는 방법
 - expo install expo-ads-admob
 - npx pod-install (only for Ios)
-- Ios 폴더 - ujdiary 폴더 - info.plist 안에 아래 붙여넣기
+- Ios 폴더 - ujdiary 폴더 - info.plist 안에 아래 코드 붙여넣기
+- adMob에 가입하면 app id를 줄거임. 이거는 그냥 demo 버젼
+- 사용방법은 https://docs.expo.dev/versions/latest/sdk/admob/ 참조
 
 ```javascript
 <key>GADApplicationIdentifier</key>
@@ -49,19 +51,6 @@
 ```
 
 https://developers.google.com/admob/ios/ios14#skadnetwork 안에 코드도 붙여넣어야함
-
-### AdMob (Android)
-
-- 앱에 광고를 보여주는 방법
-- expo install expo-ads-admob
-- Android 폴더 - app 폴더 - src 폴더 - main 폴더 - AdroidManifest.xml 안에 <Application> 안에 아래코드 붙여넣기
-
-```javascript
-<meta-data
-  android:name="com.google.android.gms.ads.APPLICATION_ID"
-  android:value="ca-app-pub-xxxxxxxxxxxxxxxx~yyyyyyyyyy"
-/>
-```
 
 ## 페이지 정리
 

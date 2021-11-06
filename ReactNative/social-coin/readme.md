@@ -10,3 +10,9 @@
 - npx pod-install
 - npm start
 - npm run ios
+
+### Testing
+
+- firebase Authentication 시작
+- npm install @react-native-firebase/auth
+- npx pod-install

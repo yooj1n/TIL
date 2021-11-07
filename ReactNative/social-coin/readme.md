@@ -16,3 +16,13 @@
 - firebase Authentication 시작
 - npm install @react-native-firebase/auth
 - npx pod-install
+
+### Screens
+
+- npm install @react-navigation/native
+- npm install react-native-screens react-native-safe-area-context
+- npm install @react-navigation/native-stack
+- npx pod-install
+- npm i styled-components
+- Login이 되어있을 때 보여지는 InNav(Home Screen)와 Login이 안 되어있을 때 보여지는 OutNav(Login, Join) 생성
+- Join.js 에서 email을 입력하고 키보드의 next를 눌렀을 때 password input으로 넘어가게 하는방법 : onSubmitEditing, useRef, Ref 이용

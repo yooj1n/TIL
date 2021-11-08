@@ -1,9 +1,39 @@
 import React, { useRef, useState } from "react";
-import { TextInput } from "react-native-gesture-handler";
 import styled from "styled-components/native";
+import { DARK_COLOR } from "../colors";
 
-const Container = styled.View``;
-const Text = styled.Text``;
+const Container = styled.View`
+background-color: ${DARK_COLOR};
+flex: 1;
+align-items: center;
+padding: 50px 20px;
+`;
+
+const TextInput = styled.TextInput`
+width: 100%;
+background-color: rgba(255, 255, 255, 0.5);;
+color: white;
+padding: 10px 20px;
+margin-bottom: 10px;
+border-radius: 10px;
+font-size: 16px;
+`;
+
+const Btn = styled.TouchableOpacity`
+width: 100%;
+justify-content: center;
+align-items: center;
+padding: 10px 20px;
+border-color: rgba(255, 255, 255, 0.5);
+border-width: 1px;
+border-radius: 10px;
+`;
+
+const BtnText =styled.Text`
+color: white;
+font-size: 16px;
+`;
+
 
 const Join = () => {
   const passwordInput = useRef();
@@ -23,6 +53,7 @@ const Join = () => {
       value={email} 
       onChangeText={(text) => setEmail(text)} 
       onSubmitEditing={onSubmitEditing}
+      placeholderTextColor={"rgba(255, 255, 255, 0.7)"}
       />
       <TextInput
       ref = {passwordInput}
@@ -30,7 +61,12 @@ const Join = () => {
       secureTextEntry
       returnKeyType="done"
       value={password} 
-      onChangeText={(text) => setPassword(text)} />
+      onChangeText={(text) => setPassword(text)} 
+      placeholderTextColor={"rgba(255, 255, 255, 0.7)"}
+      />
+      <Btn>
+        <BtnText>Create Account</BtnText>
+      </Btn>
     </Container>
   )
 }

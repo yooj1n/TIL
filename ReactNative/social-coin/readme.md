@@ -26,3 +26,13 @@
 - npm i styled-components
 - Login이 되어있을 때 보여지는 InNav(Home Screen)와 Login이 안 되어있을 때 보여지는 OutNav(Login, Join) 생성
 - Join.js 에서 email을 입력하고 키보드의 next를 눌렀을 때 password input으로 넘어가게 하는방법 : onSubmitEditing, useRef, Ref 이용
+
+### google 로그인
+
+### API 연결
+
+- npm i react-query
+- Api.js를 만들어서 받아올 api 주소 생성
+- data를 보여줄 screen(Home)에가서 useQuery를 이용하여 data 받기.
+- Filter와 FlatList를 사용하여 데이터를 화면에 띄우기.
+- FlatList의 numColumns을 이용하여 열의 갯수를 지정할 수 있음.

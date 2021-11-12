@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
-import { ActivityIndicator } from "react-native";
-import { FlatList } from "react-native-gesture-handler";
+import { ActivityIndicator, View } from "react-native";
 import { useQuery } from "react-query";
 import { useState } from "react/cjs/react.development";
 import styled from "styled-components/native";
 import { coins } from "../api";
 import { DARK_COLOR } from "../colors";
+import Coin from "../components/Coin";
 
 const Container = styled.View`
 flex: 1;
@@ -19,17 +19,11 @@ justify-content: center;
 align-items: center;
 `;
 
-const Coin = styled.View`
-align-items:center;
+const List = styled.FlatList`
+width: 100%;
+padding: 20px 10px;
 `;
 
-const CoinName = styled.Text`
-color: white;
-`;
-
-const CoinSymbol = styled.Text`
-color: white;
-`;
 
 const Home = () => {
   const {isLoading, data} = useQuery("coins", coins)
@@ -50,16 +44,15 @@ const Home = () => {
   }
   return (
     <Container>
-      <FlatList 
+      <List 
         data={cleanData}
-        numColumns={5}
+        numColumns={3}
         keyExtractor={(item) => item.id}
-        renderItem={({item}) =>(
-          <Coin>
-            <CoinName>{item.name}</CoinName>
-            <CoinSymbol>{item.symbol}</CoinSymbol>
-          </Coin>
-          )}
+        columnWrapperStyle={{
+          justifyContent:"space-between",
+        }}
+        ItemSeparatorComponent={() => <View style={{height:10}}/>}
+        renderItem={({item, index}) => <Coin index={index} symbol={item.symbol}/> }
       />
     </Container>
   )

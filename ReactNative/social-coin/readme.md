@@ -32,7 +32,14 @@
 ### API 연결
 
 - npm i react-query
+- app.js에 New queryClient를 생성하고 return 전체를 QueryClientProvider로 감싸주기
 - Api.js를 만들어서 받아올 api 주소 생성
 - data를 보여줄 screen(Home)에가서 useQuery를 이용하여 data 받기.
 - Filter와 FlatList를 사용하여 데이터를 화면에 띄우기.
-- FlatList의 numColumns을 이용하여 열의 갯수를 지정할 수 있음.
+- FlatList의 numColumns을 이용하여 열의 갯수를 지정할 수 있음. numcolums을 지정하면 Rerender 해줘야함.
+
+### Coin 이미지 받아와서 애니메이션 삽입
+
+- Coin 이름에 따라 이미지를 제공해주는 무료 API를 이용하여 이미를 받아옴.
+- 로딩이 될 때 코인 각각에 애니메이션을 주기위해 별개의 coin 컴포넌트 생성
+- item의 index를 넘겨주어 차례대로 Animated를 시킴.

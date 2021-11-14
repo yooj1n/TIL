@@ -40,6 +40,15 @@
 
 ### Coin 이미지 받아와서 애니메이션 삽입
 
-- Coin 이름에 따라 이미지를 제공해주는 무료 API를 이용하여 이미를 받아옴.
+- Coin 이름에 따라 이미지를 제공해주는 무료 API를 이용하여 이미지를 받아옴.
 - 로딩이 될 때 코인 각각에 애니메이션을 주기위해 별개의 coin 컴포넌트 생성
 - item의 index를 넘겨주어 차례대로 Animated를 시킴.
+
+### Detail screen_info,history API 연결
+
+### Victory chart
+
+- npm install --save victory-native
+- npm install react-native-svg
+- npx pod-install
+- https://formidable.com/open-source/victory/gallery 참조

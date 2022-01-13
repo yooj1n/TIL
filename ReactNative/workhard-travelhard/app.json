@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "workhard-travelhard",
+    "slug": "workhard-travelhard",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "workhard-travelhard"
+}

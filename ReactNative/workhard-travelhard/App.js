@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
+import { ScrollView, TextInput, TouchableOpacity } from 'react-native-gesture-handler';
 import { theme } from './color';
 
 export default function App() {
@@ -22,7 +22,6 @@ export default function App() {
     setToDos(newToDos);
     setText("");
   }
-  console.log(toDos);
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
@@ -41,6 +40,13 @@ export default function App() {
         returnKeyType="done"
         placeholder={working ? "Add a To do" : "Where do you want to go?"}
         style={styles.input} />
+        <ScrollView>
+          {Object.keys(toDos).map((key) => (
+            <View style={styles.toDo} key={key}>
+              <Text style={styles.toDoText}>{toDos[key].text}</Text>
+            </View>
+          ))}
+        </ScrollView>
     </View>
   );
 }
@@ -67,5 +73,18 @@ const styles = StyleSheet.create({
     paddingHorizontal:15,
     borderRadius:20,
     marginTop:15,
+    marginBottom:20,
+  },
+  toDo : {
+    backgroundColor:theme.grey,
+    paddingHorizontal:20,
+    paddingVertical:10,
+    marginBottom:10,
+    borderRadius:10,
+  },
+  toDoText : {
+    color: "white",
+    fontSize:16,
+    fontWeight:"500",
   }
 });

@@ -1,43 +1,31 @@
 import { createStore } from "redux";
 
-const add = document.getElementById("add");
-const minus = document.getElementById("minus");
-const number = document.querySelector("span");
-
-number.innerText = 0;
+const form = document.querySelector("form");
+const input = document.querySelector("input");
+const ul = document.querySelector("ul");
 
 const ADD = "ADD";
-const MINUS = "MINUS";
+const DELETE = "DELETE";
 
-//reducer(countModifier)는 내 data를 modify하는 function이다.
-//action은 redux에서 function을 부를때 쓰는 두번째 parameter or argument 이다
-const countModifier = (count = 0, action) => {
+const reducer = (state = [], action) => {
+  console.log(action);
   switch (action.type) {
     case ADD:
-      return count + 1;
-    case MINUS:
-      return count - 1;
+      return [];
+    case DELETE:
+      return [];
     default:
-      return count;
+      return state;
   }
 };
 
-//store(countStore)는 내 data를 저장하는 곳
-const countStore = createStore(countModifier);
+const store = createStore(reducer);
 
-const onChange = () => {
-  number.innerText = countStore.getState();
+const onSubmit = (e) => {
+  e.preventDefault();
+  const toDo = input.value;
+  input.value = "";
+  store.dispatch({ type: ADD, text: toDo });
 };
 
-countStore.subscribe(onChange);
-
-const handleAdd = () => {
-  countStore.dispatch({ type: ADD });
-};
-
-const handleMinus = () => {
-  countStore.dispatch({ type: MINUS });
-};
-
-add.addEventListener("click", handleAdd);
-minus.addEventListener("click", handleMinus);
+form.addEventListener("submit", onSubmit);

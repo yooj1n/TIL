@@ -13,7 +13,11 @@ function RootStack() {
         options={{headerShown: false}}
         component={MainTab}
       />
-      <Stack.Screen name="Write" component={WriteScreen} />
+      <Stack.Screen
+        name="Write"
+        options={{headerShown: false}}
+        component={WriteScreen}
+      />
     </Stack.Navigator>
   );
 }

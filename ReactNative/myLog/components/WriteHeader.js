@@ -3,7 +3,7 @@ import React from 'react';
 import {Pressable, StyleSheet, View} from 'react-native';
 import CircleButton from './CircleButton';
 
-function WriteHeader({onSave}) {
+function WriteHeader({onSave, onAskRemove, isEditing}) {
   const navigation = useNavigation();
   const goBack = () => {
     navigation.pop();
@@ -13,7 +13,14 @@ function WriteHeader({onSave}) {
     <View style={styles.block}>
       <CircleButton name="arrow-back" color="#424242" onPress={goBack} />
       <View style={styles.buttons}>
-        <CircleButton name="delete-forever" color="#ef5350" hasmarginRight />
+        {isEditing && (
+          <CircleButton
+            name="delete-forever"
+            color="#ef5350"
+            hasmarginRight
+            onPress={onAskRemove}
+          />
+        )}
         <CircleButton name="check" color="#0C5EE8" onPress={onSave} />
       </View>
     </View>
